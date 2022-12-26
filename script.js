@@ -3,14 +3,21 @@ const quoteDisplayElement = document.getElementById('quoteDisplay')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer')
 
+let startTyping = true
+
 document.addEventListener('keydown', () =>{
     quoteInputElement.focus()
+    if(startTyping) {
+        startTimer()
+        startTyping = false
+    }
 })
 
 quoteInputElement.addEventListener('input', () => {
+    
     const arrayQuote = quoteDisplayElement.querySelectorAll('span')
     const arrayValue = quoteInputElement.value.split('')
-
+    
     let correct = true
     arrayQuote.forEach((characterSpan, index) => {
         const character = arrayValue[index]
@@ -27,7 +34,12 @@ quoteInputElement.addEventListener('input', () => {
             correct = false
         }
     })
-    if (correct) renderNewQuote()
+    
+    if (correct) {
+        stopTimer()
+        renderNewQuote()
+        startTyping = true
+    }
 })
 
 function getRandomQuote() {
@@ -37,6 +49,7 @@ function getRandomQuote() {
 }
 
 async function renderNewQuote() {
+    
     const quote = await getRandomQuote()
     quoteDisplayElement.innerText = ''
     quote.split('').forEach(character => {
@@ -45,20 +58,26 @@ async function renderNewQuote() {
         quoteDisplayElement.appendChild(characterSpan)
     })
     quoteInputElement.value = null
-    startTimer()
+    renderTimer()
+}
+
+async function renderTimer() {
+    timerElement.innerText = 0
 }
 
 let startTime
 function startTimer() {
-    timerElement.innerText = 0
     startTime = new Date()
     setInterval(() => {
         timer.innerText = getTimerTime()
     }, 1000)
 }
-
+function stopTimer() {
+    timer.innerText = 0
+}
 function getTimerTime() {
     return Math.floor((new Date() - startTime) / 1000)
 }
 
 renderNewQuote()
+
