@@ -1,0 +1,62 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color:rgb(77, 77, 77);
+}
+
+body, .quote-input {
+    font-family:Arial, Helvetica, sans-serif
+}
+
+.list{
+    user-select: none;
+    list-style-type: none ;
+}
+
+.container {
+    user-select: none;
+    background-color: white;
+    padding: 1rem;
+    border-radius: .5rem;
+    width: 700px;
+    max-width: 90%;
+}
+
+.timer {
+    user-select: none;
+    position: relative;
+    text-align: center;
+    left: -2.6rem;
+    font-size: 3rem;
+    color: white;
+    font-weight: bold;
+}
+
+.quote-display {
+    user-select: none;
+    text-align: center;
+}
+
+.quote-input {
+    user-select: none;
+    height: 0;
+    opacity: 0;
+    background-color: transparent;
+    
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+    text-decoration: underline;
+}
