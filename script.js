@@ -61,22 +61,22 @@ async function renderNewQuote() {
     renderTimer()
 }
 
-async function renderTimer() {
+function renderTimer() {
     timerElement.innerText = 0
 }
 
-let startTime
-function startTimer() {
-    startTime = new Date()
-    setInterval(() => {
-        timer.innerText = getTimerTime()
+let seconds = 0;  // initialize timer seconds
+let timer;  // initialize timer variable for setInterval/clearInterval
+
+function startTimer() {  // start timer that increments by second
+    timer = setInterval(function() {
+        seconds++; 
+        timerElement.innerText = seconds;  
     }, 1000)
 }
-function stopTimer() {
-    timer.innerText = 0
-}
-function getTimerTime() {
-    return Math.floor((new Date() - startTime) / 1000)
+function stopTimer() {  // stops timer and resets seconds back to 0
+    clearInterval(timer);
+    seconds = 0;
 }
 
 renderNewQuote()
