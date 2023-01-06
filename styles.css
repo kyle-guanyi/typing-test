@@ -3,6 +3,7 @@
 }
 
 body {
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,8 +17,12 @@ body, .quote-input {
 }
 
 .list{
+    padding:0px;
     user-select: none;
     list-style-type: none ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .container {
@@ -33,7 +38,6 @@ body, .quote-input {
     user-select: none;
     position: relative;
     text-align: center;
-    left: -2.6rem;
     font-size: 3rem;
     color: white;
     font-weight: bold;

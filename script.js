@@ -7,14 +7,14 @@ let startTyping = true
 
 document.addEventListener('keydown', () =>{
     quoteInputElement.focus()
-    if(startTyping) {
-        startTimer()
-        startTyping = false
-    }
 })
 
 quoteInputElement.addEventListener('input', () => {
-    
+    if(startTyping) {  // starts timer when any input is detected
+        startTimer()
+        startTyping = false
+    }
+
     const arrayQuote = quoteDisplayElement.querySelectorAll('span')
     const arrayValue = quoteInputElement.value.split('')
     
@@ -59,24 +59,35 @@ async function renderNewQuote() {
     })
     quoteInputElement.value = null
     renderTimer()
+    resetTimer()
 }
 
-function renderTimer() {
+let seconds = 0  // initialize timer seconds
+let elapsedSeconds = 0  // initialize elapsed seconds
+let timer  // initialize timer variable for setInterval/clearInterval
+
+function renderTimer() {  // timer is visible as 0
     timerElement.innerText = 0
 }
 
-let seconds = 0;  // initialize timer seconds
-let timer;  // initialize timer variable for setInterval/clearInterval
+function resetTimer() {  // resets all attributes of timer
+    seconds = 0
+    elapsedSeconds = 0; 
+    startTyping = true
+}
 
 function startTimer() {  // start timer that increments by second
+    var interval = 100  // how often setInterval should update
+    var startTime = Date.now() 
     timer = setInterval(function() {
-        seconds++; 
-        timerElement.innerText = seconds;  
-    }, 1000)
+        var changeInTime = Date.now() - startTime  // accurate milliseconds since start
+        seconds = Math.floor(changeInTime/1000)
+        timerElement.innerText = seconds  
+    }, interval)
 }
-function stopTimer() {  // stops timer and resets seconds back to 0
-    clearInterval(timer);
-    seconds = 0;
+function stopTimer() {  // stops timer
+    clearInterval(timer)
+    elapsedSeconds = seconds;
 }
 
 renderNewQuote()
