@@ -48,11 +48,14 @@ body, .quote-input {
     text-align: center;
 }
 
-.caret {
+.overlay {
+    display: none;
     position: absolute;
-    height: 1rem;
-    width: 0.5rem;
-    background-color: black;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .quote-input {
@@ -61,6 +64,15 @@ body, .quote-input {
     opacity: 0;
     background-color: transparent;
     
+}
+
+.wpm {
+    user-select: none;
+    position: relative;
+    text-align: center;
+    font-size: 3rem;
+    color: white;
+    font-weight: bold;
 }
 
 .correct {

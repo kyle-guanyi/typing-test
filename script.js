@@ -1,8 +1,10 @@
 const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random'
 const quoteDisplayElement = document.getElementById('quoteDisplay')
-const caretElement = document.querySelector('.caret')
+const overlay = document.getElementById('overlay')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer')
+const wpmElement = document.getElementById('wpm')
+
 
 let startTyping = true
 
@@ -21,6 +23,7 @@ quoteInputElement.addEventListener('input', () => {
     
     let correct = true
     arrayQuote.forEach((characterSpan, index) => {
+        const character = arrayValue[index]
         if (character == null) {
             characterSpan.classList.remove('correct')
             characterSpan.classList.remove('incorrect')
@@ -37,8 +40,7 @@ quoteInputElement.addEventListener('input', () => {
     
     if (correct) {
         stopTimer()
-        renderNewQuote()
-        startTyping = true
+        overlay.style.display = 'block'
     }
 })
 
@@ -68,6 +70,7 @@ let timer  // initialize timer variable for setInterval/clearInterval
 
 function renderTimer() {  // timer is visible as 0
     timerElement.innerText = 0
+    wpmElement.innerText = 0
 }
 
 function resetTimer() {  // resets all attributes of timer
