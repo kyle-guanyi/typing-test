@@ -1,5 +1,6 @@
 const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random'
 const quoteDisplayElement = document.getElementById('quoteDisplay')
+const caretElement = document.querySelector('.caret')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer')
 
@@ -14,13 +15,12 @@ quoteInputElement.addEventListener('input', () => {
         startTimer()
         startTyping = false
     }
-
+    
     const arrayQuote = quoteDisplayElement.querySelectorAll('span')
     const arrayValue = quoteInputElement.value.split('')
     
     let correct = true
     arrayQuote.forEach((characterSpan, index) => {
-        const character = arrayValue[index]
         if (character == null) {
             characterSpan.classList.remove('correct')
             characterSpan.classList.remove('incorrect')

@@ -48,6 +48,13 @@ body, .quote-input {
     text-align: center;
 }
 
+.caret {
+    position: absolute;
+    height: 1rem;
+    width: 0.5rem;
+    background-color: black;
+}
+
 .quote-input {
     user-select: none;
     height: 0;
