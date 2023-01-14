@@ -8,6 +8,7 @@ const wpmElement = document.getElementById('wpm')
 
 let startTyping = true
 
+
 document.addEventListener('keydown', () =>{
     quoteInputElement.focus()
 })
@@ -15,6 +16,7 @@ document.addEventListener('keydown', () =>{
 quoteInputElement.addEventListener('input', () => {
     if(startTyping) {  // starts timer when any input is detected
         startTimer()
+        startWPM()
         startTyping = false
     }
     
@@ -40,6 +42,7 @@ quoteInputElement.addEventListener('input', () => {
     
     if (correct) {
         stopTimer()
+        stopWPM()
         overlay.style.display = 'block'
     }
 })
@@ -61,26 +64,23 @@ async function renderNewQuote() {
     })
     quoteInputElement.value = null
     renderTimer()
+    renderWPM()
     resetTimer()
+    resetWPM()
+    overlay.style.display = 'none'
 }
 
-let seconds = 0  // initialize timer seconds
-let elapsedSeconds = 0  // initialize elapsed seconds
-let timer  // initialize timer variable for setInterval/clearInterval
+let seconds = 0 
+let timer
+let wpmCounter
+let correctCharacters = 0
 
 function renderTimer() {  // timer is visible as 0
     timerElement.innerText = 0
-    wpmElement.innerText = 0
-}
-
-function resetTimer() {  // resets all attributes of timer
-    seconds = 0
-    elapsedSeconds = 0; 
-    startTyping = true
 }
 
 function startTimer() {  // start timer that increments by second
-    var interval = 100  // how often setInterval should update
+    var interval = 100  // how often setInterval should update (every tenth of a second)
     var startTime = Date.now() 
     timer = setInterval(function() {
         var changeInTime = Date.now() - startTime  // accurate milliseconds since start
@@ -90,7 +90,31 @@ function startTimer() {  // start timer that increments by second
 }
 function stopTimer() {  // stops timer
     clearInterval(timer)
-    elapsedSeconds = seconds;
+}
+
+function resetTimer() {  // resets all attributes of timer
+    seconds = 0
+    startTyping = true
+}
+
+function renderWPM() {
+    wpmElement.innerText = 0
+}
+
+function startWPM() {
+    var interval = 1000
+    wpmCounter = setInterval(function() {
+        correctCharacters = document.querySelectorAll('.correct').length
+        wpmElement.innerText = Math.floor((correctCharacters/5)/(seconds/60))
+    }, interval)
+}
+
+function stopWPM() {
+    clearInterval(wpmCounter)
+}
+
+function resetWPM() {
+    correctCharacters = 0
 }
 
 renderNewQuote()

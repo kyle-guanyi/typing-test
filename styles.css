@@ -49,6 +49,7 @@ body, .quote-input {
 }
 
 .overlay {
+    z-index:2;
     display: none;
     position: absolute;
     top: 0;
@@ -66,7 +67,12 @@ body, .quote-input {
     
 }
 
+.option-buttons {
+    z-index:3;
+}
+
 .wpm {
+    z-index:3;
     user-select: none;
     position: relative;
     text-align: center;
