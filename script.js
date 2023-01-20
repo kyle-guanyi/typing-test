@@ -4,7 +4,7 @@ const overlay = document.getElementById('overlay')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer')
 const wpmElement = document.getElementById('wpm')
-
+const overlayElement = document.getElementById('overlay')
 
 let startTyping = true
 
@@ -43,6 +43,7 @@ quoteInputElement.addEventListener('input', () => {
     if (correct) {
         stopTimer()
         stopWPM()
+        renderOverlayText()
         overlay.style.display = 'block'
     }
 })
@@ -115,6 +116,10 @@ function stopWPM() {
 
 function resetWPM() {
     correctCharacters = 0
+}
+
+function renderOverlayText() {
+    overlayElement.innerText = "WPM: " + wpmElement.innerText
 }
 
 renderNewQuote()
